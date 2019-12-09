@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Quote Dash</title>
+</head>
+<body>
+    <div class="container-fluid">
+            <div class="row">
+                    <div class='col'>
+                        <h2>Register and share your favorite quotes!</h2>
+                    </div>
+                    <div class="col">
+                        <h2>Login to get back to quoting!</h2>
+                    </div>
+            </div>
+            <div class ='row'>
+                <div class ='col'>
+                    <form action="/register" method="post">
+                        {% csrf_token %}               
+                        <div class ='form-row'>
+                            <div class ='col'>
+                                <label for ='first_name'>First Name</label>
+                                <input type="text" name="first_name" class='form-control'>
+                                {% if messages %}{% for message in messages %}{% if message.extra_tags == 'first_name' %}
+                                <p style="color: rgb(255, 10, 10);">{{ message }}</p>
+                                {% endif %}{% endfor %}{% endif %}
+                            </div>
+                            <div class='col'>
+                                <label for ='last_name'>Last Name</label>
+                                <input type="text" name="last_name" class = 'form-control'>
+                                {% if messages %}{% for message in messages %}{% if message.extra_tags == 'last_name' %}
+                                <p style="color: red;">{{ message }}</p>
+                                {% endif %}{% endfor %}{% endif %}
+                            </div>
+                        </div>
+                        <div class='form-row'>
+                            <div class='col'>
+                                <label for ='Email'>Email</label>
+                                <input type="text" name="email" class ='form-control'>
+                                {% if messages %}{% for message in messages %}{% if message.extra_tags == 'email' %}
+                                <p style="color: red;">{{ message }}</p>
+                                {% endif %}{% endfor %}{% endif %}
+                            </div>
+                            <div class='col'>
+                                <label for ='password'>Password</label>
+                                <input type="text" name="password" class ='form-control'>
+                                {% if messages %}{% for message in messages %}{% if message.extra_tags == 'password' %}
+                                <p style="color: red;">{{ message }}</p>
+                                {% endif %}{% endfor %}{% endif %}
+                            </div>
+                        </div>
+                        <div class='form-row'>
+                            <div class ='col'>
+                                <label for ='confirm_password'>Confirm Password</label>
+                                <input type="text" name="confirm_password" class='form-control'>
+                                {% if messages %}{% for message in messages %}{% if message.extra_tags == 'confirm_password' %}
+                                <p style="color: red;">{{ message }}</p>
+                                {% endif %}{% endfor %}{% endif %}
+                            </div>
+                        </div>
+                        <br></br>
+                        <input type="submit" value="Register" class='btn btn-info'>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form action="/login" method="post">
+                        {% csrf_token %}      
+                            <div class="form-row">
+                                <div class="col">
+                                    <label for='log_match'>Email</label>
+                                    <input type="text" name="log_match" class ='form-control'>
+                                    {% if messages %}{% for message in messages %}{% if message.extra_tags == 'log_match' %}
+                                    <p style="color: rgb(255, 10, 10);">{{ message }}</p>
+                                    {% endif %}{% endfor %}{% endif %}                     
+                                </div>
+                                <div class="col">
+                                    <label for='pass_match'>Password</label>
+                                    <input type="text" name="pass_match" class ='form-control'>
+                                    {% if messages %}{% for message in messages %}{% if message.extra_tags == 'pass_match' %}
+                                    <p style="color: rgb(255, 10, 10);">{{ message }}</p>
+                                    {% endif %}{% endfor %}{% endif %}
+                                </div>
+                            </div>
+                            <br></br>
+                            <input type="submit" value="Login" class="btn btn-success">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>     
+    </div>
+</body>
+</html>

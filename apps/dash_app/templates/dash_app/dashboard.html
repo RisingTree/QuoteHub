@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Quote Dashboard</title>
+    <style>
+    </style>
+</head>
+<body>
+    <div class = 'row'>
+        <div class='col'>
+            <h2>Welcome {{user.first}}!</h2>
+        </div>
+        <div class='col'>
+            <a class="btn btn-dark" href="/logout" role="button">Logout</a>
+            <a  class ='btn btn-warning' href='/myaccount/{{user.id}}''>Edit My Account</a>
+        </div>
+    </div>
+    <br></br>
+    <div class="container-fluid">
+        <h4>Quotes</h4>
+        <div class='row'>
+            <div class='col'>
+                {% for quote in all_quotes %}
+                <div class="row">
+                    <div class="col">
+                        <div class="card" style="width: 14rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{quote.author}}'s quote</h5>
+                                <p class="card-text">{{quote.quote}}</p>
+                                <p class ='card-text'>Posted by <a href='/user/{{quote.created_by.id}}'>{{quote.created_by.first}}</a></p>
+                                <p class ='card-text'> {{quote.liked_by.all|length}} people like this</p>
+                                {%  if quote not in user.quotes_liked.all %}
+                                <a href='/liked/{{quote.id}}' class ='btn btn-primary'>Like</a>
+                                {% endif %}
+                                {% if request.session.userid == quote.created_by.id %}
+                                    <a class="btn btn-primary" href="/user/{{quote.id}}/delete" role="button">Delete</a>
+                                {% endif %}
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col">
+                <div class ='card' style='width:16rem;'>
+                    <div class='card-body'>
+                        <h5 class='card-title'>Add a Quote</h5>
+                        <form action = '/process_quote' method= 'post'>
+                            {% csrf_token %}
+                            <label for ='author' >Who said it?</label>
+                            <input type='text' name ='author' class='form-control' value ='Ex. Abraham Lincoln'>
+                            {% if messages %}{% for message in messages %}{% if message.extra_tags == 'author' %}
+                            <p style="color: rgb(255, 10, 10);">{{ message }}</p>{% endif %}{% endfor %}{% endif %}
+                            <br></br>
+                            <label for ='quote'>What did they say?</label>
+                            <input type='text' name ='quote' class='form-control' value ='Ex . Four Score...'>
+                            {% if messages %}{% for message in messages %}{% if message.extra_tags == 'quote' %}
+                            <p style="color: rgb(255, 10, 10);">{{ message }}</p>{% endif %}{% endfor %}{% endif %}
+                            <br></br>
+                            <input type='submit'  class='btn btn-success' value= 'Post your quote!'>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

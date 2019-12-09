@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>User Quotes</title>
+</head>
+<body>
+    <div class='row'>
+        <div class='col'>
+            <h2>{{user.first}}'s Quotes</h2>
+        </div>
+        <div class="col">
+            <a class="btn btn-warning" href='/quotes'>Back</a>
+            <a class="btn btn-dark"href='/logout'>Logout</a>
+            <a class='btn btn-info' href='/myaccount/{{user.id}}'>Edit your account</a>
+        </div>
+    </div>
+    <br></br>
+    <div class="card " style='width:20rem;'>
+        <div class="card-body">
+            <ul class='list-group list-group-flush'>
+                {% for q in user_quotes %}
+                <li class="list-group-item">{{q.author}} : '{{q.quote}}'</li>
+                {% endfor %} 
+            </ul> 
+        </div>
+    </div>   
+</body>
+</html>

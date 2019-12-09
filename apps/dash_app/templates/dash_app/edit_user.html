@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>EDIT TRIP</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h3>Edit My Account</h3>
+            </div>
+            <div class="col">
+                <a href="/quotes" class='btn btn-info'>Back</a>
+                <a class="btn btn-dark" href="/logout" role="button">Logout</a> 
+            </div>
+        </div>
+        <br></br>
+        <div class= 'card' style='width:30rem'>
+            <div class='card-body'>
+                <form action="/process_edit_account/{{user.id}}" method="post">
+                {% csrf_token %}               
+                    <label for='update_first'>First Name </label>
+                    <input type="text" name="update_first" value="{{user.first}}" class='form-control-sm'>
+                    {% if messages %}{% for message in messages %}{% if message.extra_tags == 'update_first' %}
+                    <p style="color: rgb(255, 10, 10);">{{ message }}</p>
+                    {% endif %}{% endfor %}{% endif %}
+                    <br></br>
+                    <label for ='update_last'>Last Name</label>
+                    <input type="text" name="update_last" value="{{user.last}}" class='form-control-sm'>
+                    {% if messages %}{% for message in messages %}{% if message.extra_tags == 'update_last' %}
+                    <p style="color: red;">{{ message }}</p>
+                    {% endif %}{% endfor %}{% endif %}
+                    <br></br>
+                    <label for ='update_email'>Email</label>
+                    <input type="text" name="update_email" value="{{user.email}}" class='form-control-sm'>
+                    {% if messages %}{% for message in messages %}{% if message.extra_tags == 'update_email' %}
+                    <p style="color: red;">{{ message }}</p>
+                    {% endif %}{% endfor %}{% endif %}
+                    {% if messages %}{% for message in messages %}{% if message.extra_tags == 'same_email' %}
+                    <p style="color: red;">{{ message }}</p>
+                    {% endif %}{% endfor %}{% endif %}
+                    <br></br>
+                    <input type="submit" value="Update" class ='btn btn-success'>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
